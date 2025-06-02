@@ -2,6 +2,7 @@ ipython
 jupyterlab
 loguru
 matplotlib
+seaborn
 mkdocs
 notebook
 numpy
@@ -11,6 +12,8 @@ pytest
 python-dotenv
 ruff
 scikit-learn
+nltk
+wordcloud
 tqdm
 typer
 mlflow
