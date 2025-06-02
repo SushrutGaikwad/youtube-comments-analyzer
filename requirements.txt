@@ -12,6 +12,7 @@ pytest
 python-dotenv
 ruff
 scikit-learn
+imbalanced-learn
 nltk
 wordcloud
 tqdm
