@@ -19,6 +19,8 @@ xgboost
 lightgbm
 nltk
 wordcloud
+gensim
+spacy
 optuna
 tqdm
 typer
