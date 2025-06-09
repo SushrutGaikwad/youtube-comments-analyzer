@@ -35,3 +35,8 @@ TEST_SIZE = params["data_ingestion"]["test_size"]
 RANDOM_STATE = params["data_ingestion"]["random_state"]
 TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
+
+# Data preprocessing variables
+STOP_WORDS_TO_KEEP: set = {"not", "but", "however", "no", "yet"}
+TRAIN_FILE_NAME = TRAIN_FILE_NAME
+TEST_FILE_NAME = TEST_FILE_NAME
