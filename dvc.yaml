@@ -1,0 +1,12 @@
+stages:
+  data_ingestion:
+    cmd: python youtube_comments_analyzer/data_ingestion.py
+    deps:
+    - youtube_comments_analyzer/data_ingestion.py
+    params:
+    - data_ingestion.test_size
+    - data_ingestion.random_state
+    outs:
+    - data/raw/raw_data.csv
+    - data/raw/train.csv
+    - data/raw/test.csv

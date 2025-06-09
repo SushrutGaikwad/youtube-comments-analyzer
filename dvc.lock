@@ -1,0 +1,26 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python youtube_comments_analyzer/data_ingestion.py
+    deps:
+    - path: youtube_comments_analyzer/data_ingestion.py
+      hash: md5
+      md5: 67adb6958bbcf65afc2247994001d7b8
+      size: 7954
+    params:
+      params.yaml:
+        data_ingestion.random_state: 42
+        data_ingestion.test_size: 0.2
+    outs:
+    - path: data/raw/raw_data.csv
+      hash: md5
+      md5: 38ee083169162dbac0cb07c80ac0f04e
+      size: 6888934
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 7543dc2bae90db8be7d7066e45bf6f2f
+      size: 1339353
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 9f24dbb77b14e2a6d92dc568d093286e
+      size: 5580348
