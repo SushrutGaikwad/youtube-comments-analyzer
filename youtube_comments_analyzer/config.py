@@ -1,7 +1,10 @@
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
 from loguru import logger
+
+from youtube_comments_analyzer.utils.common import load_params
 
 # Load environment variables from .env file if it exists
 load_dotenv()
@@ -21,12 +24,14 @@ MODELS_DIR = PROJ_ROOT / "models"
 REPORTS_DIR = PROJ_ROOT / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
 
-# If tqdm is installed, configure loguru with tqdm.write
-# https://github.com/Delgan/loguru/issues/135
-try:
-    from tqdm import tqdm
+# Parameter file content
+PARAMS_FILE_PATH = PROJ_ROOT / "params.yaml"
+params = load_params(PARAMS_FILE_PATH)
 
-    logger.remove(0)
-    logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True)
-except ModuleNotFoundError:
-    pass
+# Data ingestion variables
+RAW_DATA_S3_BUCKET_NAME = os.getenv("RAW_DATA_S3_BUCKET_NAME")
+RAW_DATA_S3_KEY = os.getenv("RAW_DATA_S3_KEY")
+TEST_SIZE = params["data_ingestion"]["test_size"]
+RANDOM_STATE = params["data_ingestion"]["random_state"]
+TRAIN_FILE_NAME: str = "train.csv"
+TEST_FILE_NAME: str = "test.csv"
