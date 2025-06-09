@@ -26,4 +26,5 @@ tqdm
 typer
 mlflow
 dagshub
+boto3
 -e .
