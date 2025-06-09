@@ -10,3 +10,13 @@ stages:
     - data/raw/raw_data.csv
     - data/raw/train.csv
     - data/raw/test.csv
+
+  data_preprocessing:
+    cmd: python youtube_comments_analyzer/data_preprocessing.py
+    deps:
+    - youtube_comments_analyzer/data_preprocessing.py
+    - data/raw/train.csv
+    - data/raw/test.csv
+    outs:
+    - data/interim/train.csv
+    - data/interim/test.csv

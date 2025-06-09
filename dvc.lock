@@ -24,3 +24,27 @@ stages:
       hash: md5
       md5: 9f24dbb77b14e2a6d92dc568d093286e
       size: 5580348
+  data_preprocessing:
+    cmd: python youtube_comments_analyzer/data_preprocessing.py
+    deps:
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 7543dc2bae90db8be7d7066e45bf6f2f
+      size: 1339353
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 9f24dbb77b14e2a6d92dc568d093286e
+      size: 5580348
+    - path: youtube_comments_analyzer/data_preprocessing.py
+      hash: md5
+      md5: db4b2f4aa138feb3f920d9f11a36132a
+      size: 5904
+    outs:
+    - path: data/interim/test.csv
+      hash: md5
+      md5: 2e086989136736a6973bb8c8ddd254b9
+      size: 996167
+    - path: data/interim/train.csv
+      hash: md5
+      md5: dfc726503e0238291fbeb8c0426aaaf4
+      size: 4138683
