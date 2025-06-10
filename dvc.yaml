@@ -57,3 +57,27 @@ stages:
     - model_training.n_jobs
     outs:
     - models/model.pkl
+  
+  model_evaluation:
+    cmd: python youtube_comments_analyzer/model_evaluation.py
+    deps:
+    - youtube_comments_analyzer/model_evaluation.py
+    - data/processed/X_test.csv
+    - data/processed/y_test.csv
+    - models/vectorizer.pkl
+    - models/model.pkl
+    params:
+    - model_training.learning_rate
+    - model_training.min_child_samples
+    - model_training.max_depth
+    - model_training.n_estimators
+    - model_training.objective
+    - model_training.num_class
+    - model_training.metric
+    - model_training.is_unbalance
+    - model_training.class_weight
+    - model_training.random_state
+    - model_training.n_jobs
+    outs:
+    - experiment_info.json
+    - reports/figures/Confusion_matrix_test.png

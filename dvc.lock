@@ -123,3 +123,48 @@ stages:
       hash: md5
       md5: d367e882fbe74e070517736b99260fd6
       size: 2624151
+  model_evaluation:
+    cmd: python youtube_comments_analyzer/model_evaluation.py
+    deps:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: f9c26132934e5a5f459a8da73e431c8b
+      size: 14677438
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: e8ddd80b20d8565778c5ca2107fde908
+      size: 22009
+    - path: models/model.pkl
+      hash: md5
+      md5: d367e882fbe74e070517736b99260fd6
+      size: 2624151
+    - path: models/vectorizer.pkl
+      hash: md5
+      md5: cac96be81bae840d005314c97037ef18
+      size: 24413
+    - path: youtube_comments_analyzer/model_evaluation.py
+      hash: md5
+      md5: 56438a74dfb6fc0de03f6f806473bdfd
+      size: 8448
+    params:
+      params.yaml:
+        model_training.class_weight: balanced
+        model_training.is_unbalance: true
+        model_training.learning_rate: 0.06747064968662127
+        model_training.max_depth: 30
+        model_training.metric: multi_logloss
+        model_training.min_child_samples: 10
+        model_training.n_estimators: 240
+        model_training.n_jobs: -1
+        model_training.num_class: 3
+        model_training.objective: multiclass
+        model_training.random_state: 42
+    outs:
+    - path: experiment_info.json
+      hash: md5
+      md5: 036a25fdc98d1b484345d14b241ff562
+      size: 87
+    - path: reports/figures/Confusion_matrix_test.png
+      hash: md5
+      md5: 92aafdcd715e0d8adc170fc61fbf4790
+      size: 20924
