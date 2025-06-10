@@ -90,3 +90,36 @@ stages:
       hash: md5
       md5: cac96be81bae840d005314c97037ef18
       size: 24413
+  model_training:
+    cmd: python youtube_comments_analyzer/model_training.py
+    deps:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 6e609b2d249f899bca4dc2eaa66d22d6
+      size: 58692181
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: a8b2fc4a2dcb16dd867f96cf6ce1267d
+      size: 87997
+    - path: youtube_comments_analyzer/model_training.py
+      hash: md5
+      md5: 432ea3cb4f11944bf74fe2c2f1e7c720
+      size: 4185
+    params:
+      params.yaml:
+        model_training.class_weight: balanced
+        model_training.is_unbalance: true
+        model_training.learning_rate: 0.06747064968662127
+        model_training.max_depth: 30
+        model_training.metric: multi_logloss
+        model_training.min_child_samples: 10
+        model_training.n_estimators: 240
+        model_training.n_jobs: -1
+        model_training.num_class: 3
+        model_training.objective: multiclass
+        model_training.random_state: 42
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: d367e882fbe74e070517736b99260fd6
+      size: 2624151
