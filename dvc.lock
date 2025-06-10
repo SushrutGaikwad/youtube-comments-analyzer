@@ -168,3 +168,14 @@ stages:
       hash: md5
       md5: 92aafdcd715e0d8adc170fc61fbf4790
       size: 20924
+  model_registration:
+    cmd: python youtube_comments_analyzer/model_registration.py
+    deps:
+    - path: experiment_info.json
+      hash: md5
+      md5: 60e2a8cfd8fb32bbc7510fd577cac2ef
+      size: 87
+    - path: youtube_comments_analyzer/model_registration.py
+      hash: md5
+      md5: ce9fcf69f734d186de3c0288ef815542
+      size: 2876

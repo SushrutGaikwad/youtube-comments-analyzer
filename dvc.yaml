@@ -81,3 +81,9 @@ stages:
     outs:
     - experiment_info.json
     - reports/figures/Confusion_matrix_test.png
+  
+  model_registration:
+    cmd: python youtube_comments_analyzer/model_registration.py
+    deps:
+    - youtube_comments_analyzer/model_registration.py
+    - experiment_info.json
