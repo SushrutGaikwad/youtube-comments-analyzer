@@ -40,3 +40,16 @@ TEST_FILE_NAME: str = "test.csv"
 STOP_WORDS_TO_KEEP: set = {"not", "but", "however", "no", "yet"}
 TRAIN_FILE_NAME = TRAIN_FILE_NAME
 TEST_FILE_NAME = TEST_FILE_NAME
+
+# Feature engineering variables
+NGRAM_RANGE = params["feature_engineering"]["ngram_range"]
+NGRAM_RANGE = tuple(NGRAM_RANGE)
+MAX_FEATURES = params["feature_engineering"]["max_features"]
+TRAIN_FILE_NAME = TRAIN_FILE_NAME
+TEST_FILE_NAME = TEST_FILE_NAME
+LABEL_MAPPING: dict = {-1: 2, 0: 0, 1: 1}
+X_TRAIN_FILE_NAME = "X_train.csv"
+Y_TRAIN_FILE_NAME = "y_train.csv"
+X_TEST_FILE_NAME = "X_test.csv"
+Y_TEST_FILE_NAME = "y_test.csv"
+VECTORIZER_FILE_NAME = "vectorizer.pkl"
