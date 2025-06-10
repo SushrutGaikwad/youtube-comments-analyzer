@@ -57,3 +57,7 @@ VECTORIZER_FILE_NAME = "vectorizer.pkl"
 # Model training variables
 MODEL_PARAMS = params["model_training"]
 MODEL_FILE_NAME = "model.pkl"
+
+# Model evaluation variables
+MODEL_PATH_FOR_MLFLOW = "lgbm_model"
+EXPERIMENT_INFO_FILE_NAME = "experiment_info.json"
