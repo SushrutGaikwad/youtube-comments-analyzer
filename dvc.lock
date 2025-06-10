@@ -48,3 +48,45 @@ stages:
       hash: md5
       md5: dfc726503e0238291fbeb8c0426aaaf4
       size: 4138683
+  feature_engineering:
+    cmd: python youtube_comments_analyzer/feature_engineering.py
+    deps:
+    - path: data/interim/test.csv
+      hash: md5
+      md5: 2e086989136736a6973bb8c8ddd254b9
+      size: 996167
+    - path: data/interim/train.csv
+      hash: md5
+      md5: dfc726503e0238291fbeb8c0426aaaf4
+      size: 4138683
+    - path: youtube_comments_analyzer/feature_engineering.py
+      hash: md5
+      md5: a782c46847fd5b5e0ffa926b7f4e5013
+      size: 9382
+    params:
+      params.yaml:
+        feature_engineering.max_features: 1000
+        feature_engineering.ngram_range:
+        - 1
+        - 2
+    outs:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: f9c26132934e5a5f459a8da73e431c8b
+      size: 14677438
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 6e609b2d249f899bca4dc2eaa66d22d6
+      size: 58692181
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: e8ddd80b20d8565778c5ca2107fde908
+      size: 22009
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: a8b2fc4a2dcb16dd867f96cf6ce1267d
+      size: 87997
+    - path: models/vectorizer.pkl
+      hash: md5
+      md5: cac96be81bae840d005314c97037ef18
+      size: 24413

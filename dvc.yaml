@@ -20,3 +20,19 @@ stages:
     outs:
     - data/interim/train.csv
     - data/interim/test.csv
+
+  feature_engineering:
+    cmd: python youtube_comments_analyzer/feature_engineering.py
+    deps:
+    - youtube_comments_analyzer/feature_engineering.py
+    - data/interim/train.csv
+    - data/interim/test.csv
+    params:
+    - feature_engineering.ngram_range
+    - feature_engineering.max_features
+    outs:
+    - data/processed/X_train.csv
+    - data/processed/y_train.csv
+    - data/processed/X_test.csv
+    - data/processed/y_test.csv
+    - models/vectorizer.pkl
