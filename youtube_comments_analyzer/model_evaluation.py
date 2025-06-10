@@ -21,7 +21,7 @@ from youtube_comments_analyzer.config import (
     X_TEST_FILE_NAME,
     Y_TEST_FILE_NAME,
     FIGURES_DIR,
-    MODEL_PARAMS,
+    params,
     MODEL_PATH_FOR_MLFLOW,
     EXPERIMENT_INFO_FILE_NAME,
 )
@@ -37,7 +37,7 @@ class ModelEvaluation:
     def __init__(
         self,
         model_path: Path,
-        model_params: dict,
+        pipeline_params: dict,
         vectorizer_path: Path,
         processed_data_dir: Path,
         experiment_name: str,
@@ -46,14 +46,14 @@ class ModelEvaluation:
 
         Args:
             model_path (Path): Path of the trained model.
-            model_params (dict): Model parameters.
+            pipeline_params (dict): Pipeline parameters.
             vectorizer_path (Path): Path of the vectorizer.
             processed_data_dir (Path): Path of the directory with the processed
                 data.
             experiment_name (str): Name of the MLFlow experiment.
         """
         self.model_path = model_path
-        self.model_params = model_params
+        self.pipeline_params = pipeline_params
         self.vectorizer_path = vectorizer_path
         self.processed_data_dir = processed_data_dir
         self.experiment_name = experiment_name
@@ -174,7 +174,7 @@ class ModelEvaluation:
             mlflow.set_experiment(self.experiment_name)
 
             with mlflow.start_run() as run:
-                for k, v in self.model_params.items():
+                for k, v in self.pipeline_params.items():
                     mlflow.log_param(k, v)
 
                 self.load_test_data()
@@ -225,7 +225,7 @@ if __name__ == "__main__":
     try:
         model_evaluation = ModelEvaluation(
             model_path=MODELS_DIR / MODEL_FILE_NAME,
-            model_params=MODEL_PARAMS,
+            pipeline_params=params,
             vectorizer_path=MODELS_DIR / VECTORIZER_FILE_NAME,
             processed_data_dir=PROCESSED_DATA_DIR,
             experiment_name="DVC pipeline runs",
