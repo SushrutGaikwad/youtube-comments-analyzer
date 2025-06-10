@@ -53,3 +53,7 @@ Y_TRAIN_FILE_NAME = "y_train.csv"
 X_TEST_FILE_NAME = "X_test.csv"
 Y_TEST_FILE_NAME = "y_test.csv"
 VECTORIZER_FILE_NAME = "vectorizer.pkl"
+
+# Model training variables
+MODEL_PARAMS = params["model_training"]
+MODEL_FILE_NAME = "model.pkl"
