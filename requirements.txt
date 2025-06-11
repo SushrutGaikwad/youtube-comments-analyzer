@@ -27,4 +27,6 @@ typer
 mlflow
 dagshub
 boto3
+fastapi
+uvicorn[standard]
 -e .
