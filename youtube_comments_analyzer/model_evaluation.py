@@ -26,14 +26,14 @@ from youtube_comments_analyzer.config import (
     EXPERIMENT_INFO_FILE_NAME,
 )
 
-dagshub.init(
-    repo_owner="SushrutGaikwad",
-    repo_name="youtube-comments-analyzer",
-    mlflow=True,
-)
-mlflow.set_tracking_uri(
-    "https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow"
-)
+# dagshub.init(
+#     repo_owner="SushrutGaikwad",
+#     repo_name="youtube-comments-analyzer",
+#     mlflow=True,
+# )
+# mlflow.set_tracking_uri(
+#     "https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow"
+# )
 
 
 class ModelEvaluation:
@@ -226,6 +226,15 @@ class ModelEvaluation:
 
 if __name__ == "__main__":
     try:
+        dagshub.init(
+            repo_owner="SushrutGaikwad",
+            repo_name="youtube-comments-analyzer",
+            mlflow=True,
+        )
+        mlflow.set_tracking_uri(
+            "https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow"
+        )
+
         model_evaluation = ModelEvaluation(
             model_path=MODELS_DIR / MODEL_FILE_NAME,
             pipeline_params=params,

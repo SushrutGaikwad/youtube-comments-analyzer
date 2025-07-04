@@ -28,6 +28,13 @@ jobs:
           pip install -r requirements.txt
           pip install 'dvc[s3]'
       
+      - name: Configure DagsHub Authentication
+        run: |
+          echo "machine dagshub.com login SushrutGaikwad password $DAGSHUB_TOKEN" > ~/.netrc
+          chmod 600 ~/.netrc
+        env:
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+
       - name: Run DVC Pipeline
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -36,5 +43,13 @@ jobs:
           RAW_DATA_S3_BUCKET_NAME: ${{ secrets.RAW_DATA_S3_BUCKET_NAME }}
           RAW_DATA_S3_KEY: ${{ secrets.RAW_DATA_S3_KEY }}
           DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+          MLFLOW_TRACKING_USERNAME: SushrutGaikwad
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_USER_TOKEN }}
+          MLFLOW_TRACKING_URI: https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow
         run: |
           dvc repro
+      
+      - name: Confirm MLflow tracking is active
+        run: |
+          echo "Tracking URI is: $MLFLOW_TRACKING_URI"
+          mlflow --version
