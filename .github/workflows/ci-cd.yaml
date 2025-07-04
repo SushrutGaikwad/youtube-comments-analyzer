@@ -30,7 +30,7 @@ jobs:
       
       - name: Configure DagsHub Authentication
         run: |
-          echo "machine dagshub.com login SushrutGaikwad password $DAGSHUB_TOKEN" > ~/.netrc
+          echo machine dagshub.com login SushrutGaikwad password $DAGSHUB_TOKEN > ~/.netrc
           chmod 600 ~/.netrc
         env:
           DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
