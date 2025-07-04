@@ -31,6 +31,9 @@ dagshub.init(
     repo_name="youtube-comments-analyzer",
     mlflow=True,
 )
+mlflow.set_tracking_uri(
+    "https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow"
+)
 
 
 class ModelEvaluation:
