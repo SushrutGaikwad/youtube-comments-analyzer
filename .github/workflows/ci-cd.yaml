@@ -35,5 +35,8 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
           RAW_DATA_S3_BUCKET_NAME: ${{ secrets.RAW_DATA_S3_BUCKET_NAME }}
           RAW_DATA_S3_KEY: ${{ secrets.RAW_DATA_S3_KEY }}
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
+          export MLFLOW_TRACKING_USERNAME=SushrutGaikwad
+          export MLFLOW_TRACKING_PASSWORD=$DAGSHUB_TOKEN
           dvc repro
