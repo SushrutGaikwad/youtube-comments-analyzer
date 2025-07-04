@@ -39,4 +39,5 @@ jobs:
         run: |
           export MLFLOW_TRACKING_USERNAME=SushrutGaikwad
           export MLFLOW_TRACKING_PASSWORD=$DAGSHUB_TOKEN
+          export MLFLOW_TRACKING_URI=https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow
           dvc repro
