@@ -30,9 +30,10 @@ jobs:
       
       - name: Configure DagsHub Authentication
         run: |
-          echo machine dagshub.com login SushrutGaikwad password $DAGSHUB_TOKEN > ~/.netrc
+          echo "machine dagshub.com login $DAGSHUB_USERNAME password $DAGSHUB_TOKEN" > ~/.netrc
           chmod 600 ~/.netrc
         env:
+          DAGSHUB_USERNAME: SushrutGaikwad
           DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
 
       - name: Run DVC Pipeline
@@ -47,7 +48,6 @@ jobs:
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_USER_TOKEN }}
           MLFLOW_TRACKING_URI: https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow
         run: |
-          dvc pull
           dvc repro
       
       - name: Confirm MLflow tracking is active
