@@ -48,6 +48,7 @@ jobs:
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_USER_TOKEN }}
           MLFLOW_TRACKING_URI: https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow
         run: |
+          dvc pull
           dvc repro
       
       - name: Confirm MLflow tracking is active
