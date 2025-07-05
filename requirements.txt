@@ -24,7 +24,7 @@ spacy
 optuna
 tqdm
 typer
-mlflow
+mlflow==2.22.0
 dagshub
 boto3
 fastapi
