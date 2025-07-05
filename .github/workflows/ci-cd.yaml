@@ -37,5 +37,4 @@ jobs:
           RAW_DATA_S3_KEY: ${{ secrets.RAW_DATA_S3_KEY }}
           DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
         run: |
-          dvc pull
           dvc repro
