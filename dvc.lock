@@ -5,8 +5,8 @@ stages:
     deps:
     - path: youtube_comments_analyzer/data_ingestion.py
       hash: md5
-      md5: 67adb6958bbcf65afc2247994001d7b8
-      size: 7954
+      md5: fd5db5dc44b41dc686383fca82059576
+      size: 7731
     params:
       params.yaml:
         data_ingestion.random_state: 42
@@ -18,51 +18,51 @@ stages:
       size: 6888934
     - path: data/raw/test.csv
       hash: md5
-      md5: 7543dc2bae90db8be7d7066e45bf6f2f
-      size: 1339353
+      md5: 3cb099adc63927c191b6939eca68f572
+      size: 1331993
     - path: data/raw/train.csv
       hash: md5
-      md5: 9f24dbb77b14e2a6d92dc568d093286e
-      size: 5580348
+      md5: af2f1a25a56696ee6152728f118fbd22
+      size: 5550913
   data_preprocessing:
     cmd: python youtube_comments_analyzer/data_preprocessing.py
     deps:
     - path: data/raw/test.csv
       hash: md5
-      md5: 7543dc2bae90db8be7d7066e45bf6f2f
-      size: 1339353
+      md5: 3cb099adc63927c191b6939eca68f572
+      size: 1331993
     - path: data/raw/train.csv
       hash: md5
-      md5: 9f24dbb77b14e2a6d92dc568d093286e
-      size: 5580348
+      md5: af2f1a25a56696ee6152728f118fbd22
+      size: 5550913
     - path: youtube_comments_analyzer/data_preprocessing.py
       hash: md5
-      md5: db4b2f4aa138feb3f920d9f11a36132a
-      size: 5904
+      md5: b2d421a1827f52f9c92e369a0aea5129
+      size: 5742
     outs:
     - path: data/interim/test.csv
       hash: md5
-      md5: 2e086989136736a6973bb8c8ddd254b9
-      size: 996167
+      md5: fb63ca8f3014570609befc9941735a99
+      size: 988807
     - path: data/interim/train.csv
       hash: md5
-      md5: dfc726503e0238291fbeb8c0426aaaf4
-      size: 4138683
+      md5: 0b3e48f1bfd78a0c2bcb061ec7a96b10
+      size: 4109248
   feature_engineering:
     cmd: python youtube_comments_analyzer/feature_engineering.py
     deps:
     - path: data/interim/test.csv
       hash: md5
-      md5: 2e086989136736a6973bb8c8ddd254b9
-      size: 996167
+      md5: fb63ca8f3014570609befc9941735a99
+      size: 988807
     - path: data/interim/train.csv
       hash: md5
-      md5: dfc726503e0238291fbeb8c0426aaaf4
-      size: 4138683
+      md5: 0b3e48f1bfd78a0c2bcb061ec7a96b10
+      size: 4109248
     - path: youtube_comments_analyzer/feature_engineering.py
       hash: md5
-      md5: a782c46847fd5b5e0ffa926b7f4e5013
-      size: 9382
+      md5: 485e57632bee2aa4f5933c4fddf33871
+      size: 9139
     params:
       params.yaml:
         feature_engineering.max_features: 1000
@@ -72,39 +72,39 @@ stages:
     outs:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: f9c26132934e5a5f459a8da73e431c8b
-      size: 14677438
+      md5: 8a44a4b7173b568eee928a4c71e17a49
+      size: 14670104
     - path: data/processed/X_train.csv
       hash: md5
-      md5: 6e609b2d249f899bca4dc2eaa66d22d6
-      size: 58692181
+      md5: c22a95b412b4ad89e887464c12612f82
+      size: 58662851
     - path: data/processed/y_test.csv
       hash: md5
-      md5: e8ddd80b20d8565778c5ca2107fde908
-      size: 22009
+      md5: a0900238247f5057b0da658d87bb04b0
+      size: 14675
     - path: data/processed/y_train.csv
       hash: md5
-      md5: a8b2fc4a2dcb16dd867f96cf6ce1267d
-      size: 87997
+      md5: b86668fcfbff2a08b39d1330695496b4
+      size: 58667
     - path: models/vectorizer.pkl
       hash: md5
-      md5: cac96be81bae840d005314c97037ef18
-      size: 24413
+      md5: 71db29ce91d25782b26168cea38fcaae
+      size: 28413
   model_training:
     cmd: python youtube_comments_analyzer/model_training.py
     deps:
     - path: data/processed/X_train.csv
       hash: md5
-      md5: 6e609b2d249f899bca4dc2eaa66d22d6
-      size: 58692181
+      md5: c22a95b412b4ad89e887464c12612f82
+      size: 58662851
     - path: data/processed/y_train.csv
       hash: md5
-      md5: a8b2fc4a2dcb16dd867f96cf6ce1267d
-      size: 87997
+      md5: b86668fcfbff2a08b39d1330695496b4
+      size: 58667
     - path: youtube_comments_analyzer/model_training.py
       hash: md5
-      md5: 432ea3cb4f11944bf74fe2c2f1e7c720
-      size: 4185
+      md5: 2de35fb999906054dafee9478de60cf5
+      size: 4066
     params:
       params.yaml:
         model_training.class_weight: balanced
@@ -121,31 +121,31 @@ stages:
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: d367e882fbe74e070517736b99260fd6
-      size: 2624151
+      md5: 8167e9840f21648eecba3be7d2c25075
+      size: 2624154
   model_evaluation:
     cmd: python youtube_comments_analyzer/model_evaluation.py
     deps:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: f9c26132934e5a5f459a8da73e431c8b
-      size: 14677438
+      md5: 8a44a4b7173b568eee928a4c71e17a49
+      size: 14670104
     - path: data/processed/y_test.csv
       hash: md5
-      md5: e8ddd80b20d8565778c5ca2107fde908
-      size: 22009
+      md5: a0900238247f5057b0da658d87bb04b0
+      size: 14675
     - path: models/model.pkl
       hash: md5
-      md5: d367e882fbe74e070517736b99260fd6
-      size: 2624151
+      md5: 8167e9840f21648eecba3be7d2c25075
+      size: 2624154
     - path: models/vectorizer.pkl
       hash: md5
-      md5: cac96be81bae840d005314c97037ef18
-      size: 24413
+      md5: 71db29ce91d25782b26168cea38fcaae
+      size: 28413
     - path: youtube_comments_analyzer/model_evaluation.py
       hash: md5
-      md5: c9418303bc34c92d187e37a40537b015
-      size: 8457
+      md5: ec4cc9f7ca6b8d9571660c82a9f32748
+      size: 8323
     params:
       params.yaml:
         model_training.class_weight: balanced
@@ -162,20 +162,20 @@ stages:
     outs:
     - path: experiment_info.json
       hash: md5
-      md5: 60e2a8cfd8fb32bbc7510fd577cac2ef
-      size: 87
+      md5: c8a74d349b907f552fdcd211db562d40
+      size: 84
     - path: reports/figures/Confusion_matrix_test.png
       hash: md5
-      md5: 92aafdcd715e0d8adc170fc61fbf4790
-      size: 20924
+      md5: b36c0e773e3e566c96c254cb2306d848
+      size: 22373
   model_registration:
     cmd: python youtube_comments_analyzer/model_registration.py
     deps:
     - path: experiment_info.json
       hash: md5
-      md5: 60e2a8cfd8fb32bbc7510fd577cac2ef
-      size: 87
+      md5: c8a74d349b907f552fdcd211db562d40
+      size: 84
     - path: youtube_comments_analyzer/model_registration.py
       hash: md5
-      md5: ce9fcf69f734d186de3c0288ef815542
-      size: 2876
+      md5: 55591f8116cc1128af872e886d10d7da
+      size: 2798
