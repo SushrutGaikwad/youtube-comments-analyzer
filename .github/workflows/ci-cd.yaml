@@ -30,11 +30,11 @@ jobs:
       
       - name: Configure DagsHub Authentication
         run: |
-          echo "machine dagshub.com login $DAGSHUB_USERNAME password $DAGSHUB_TOKEN" > ~/.netrc
+          echo "machine dagshub.com login $DAGSHUB_USERNAME password $DAGSHUB_USER_TOKEN" > ~/.netrc
           chmod 600 ~/.netrc
         env:
           DAGSHUB_USERNAME: SushrutGaikwad
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+          DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
 
       - name: Run DVC Pipeline
         env:
@@ -43,7 +43,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
           RAW_DATA_S3_BUCKET_NAME: ${{ secrets.RAW_DATA_S3_BUCKET_NAME }}
           RAW_DATA_S3_KEY: ${{ secrets.RAW_DATA_S3_KEY }}
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+          DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
           MLFLOW_TRACKING_USERNAME: SushrutGaikwad
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_USER_TOKEN }}
           MLFLOW_TRACKING_URI: https://dagshub.com/SushrutGaikwad/youtube-comments-analyzer.mlflow
