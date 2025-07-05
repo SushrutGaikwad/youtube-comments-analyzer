@@ -15,7 +15,7 @@ mlflow.set_tracking_uri(
 )
 
 
-@pytest.mark.parameterize(
+@pytest.mark.parametrize(
     "model_name, stage",
     [("yt_chrome_plugin_model", "Staging")],
 )
