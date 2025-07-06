@@ -88,7 +88,7 @@ stages:
       size: 58667
     - path: models/vectorizer.pkl
       hash: md5
-      md5: 6fed7ba430c58ecb98c64597b78fd478
+      md5: b235153b9ef96c59a1fa6fc3e4d8f987
       size: 28413
   model_training:
     cmd: python youtube_comments_analyzer/model_training.py
@@ -121,8 +121,8 @@ stages:
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 945cdb266e87115ce411e05fb7f03867
-      size: 2624152
+      md5: 925aadce1c4aba0b78af403f156d6ea3
+      size: 2624154
   model_evaluation:
     cmd: python youtube_comments_analyzer/model_evaluation.py
     deps:
@@ -136,11 +136,11 @@ stages:
       size: 14675
     - path: models/model.pkl
       hash: md5
-      md5: 945cdb266e87115ce411e05fb7f03867
-      size: 2624152
+      md5: 925aadce1c4aba0b78af403f156d6ea3
+      size: 2624154
     - path: models/vectorizer.pkl
       hash: md5
-      md5: 6fed7ba430c58ecb98c64597b78fd478
+      md5: b235153b9ef96c59a1fa6fc3e4d8f987
       size: 28413
     - path: youtube_comments_analyzer/model_evaluation.py
       hash: md5
@@ -162,7 +162,7 @@ stages:
     outs:
     - path: experiment_info.json
       hash: md5
-      md5: 0c628e6d896bd5723bf7d28185d9e1d7
+      md5: 37849e823cde6a48b84365322d4e8d1f
       size: 84
     - path: reports/figures/Confusion_matrix_test.png
       hash: md5
@@ -173,7 +173,7 @@ stages:
     deps:
     - path: experiment_info.json
       hash: md5
-      md5: 0c628e6d896bd5723bf7d28185d9e1d7
+      md5: 37849e823cde6a48b84365322d4e8d1f
       size: 84
     - path: youtube_comments_analyzer/model_registration.py
       hash: md5
