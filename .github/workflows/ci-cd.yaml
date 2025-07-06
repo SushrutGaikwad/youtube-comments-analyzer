@@ -80,7 +80,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
           DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
         run: |
-          pytest tests/test_model_loading.py
+          pytest -s tests/test_model_loading.py
       
       - name: Run Model Signature Test
         env:
@@ -89,7 +89,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
           DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
         run: |
-          pytest tests/test_model_signature.py
+          pytest -s tests/test_model_signature.py
       
       - name: Run Model Performance Test
         env:
@@ -98,4 +98,4 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
           DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
         run: |
-          pytest tests/test_model_performance.py
+          pytest -s tests/test_model_performance.py
