@@ -109,3 +109,16 @@ jobs:
           DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
         run: |
           python scripts/promote_model.py
+      
+      - name: Start FastAPI App
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
+          DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+        run: |
+          nohup uvicorn backend.main:app --host 0.0.0.0 --port 5000 --log-level info &
+      
+      - name: Test FastAPI
+        run: |
+          pytest scripts/test_fast_api.py
