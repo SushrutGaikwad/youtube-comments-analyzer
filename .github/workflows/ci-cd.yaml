@@ -121,4 +121,4 @@ jobs:
       
       - name: Test FastAPI
         run: |
-          pytest scripts/test_fast_api.py
+          pytest -s tests/test_fast_api.py
