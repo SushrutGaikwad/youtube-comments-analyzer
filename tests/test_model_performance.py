@@ -5,6 +5,7 @@ import dagshub
 
 import pandas as pd
 
+from loguru import logger
 from mlflow.tracking import MlflowClient
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
@@ -19,18 +20,21 @@ mlflow.set_tracking_uri(
 
 
 @pytest.mark.parametrize(
-    "model_name, stage, holdout_data_path, vectorizer_path",
+    "model_name, stage, X_holdout_path, y_holdout_path",
     [
         (
             "yt_chrome_plugin_model",
             "Staging",
-            "data/interim/test.csv",
-            "models/vectorizer.pkl",
+            "data/processed/X_test.csv",
+            "data/processed/y_test.csv",
         )
     ],
 )
-def test_model_performance(model_name, stage, holdout_data_path, vectorizer_path):
+def test_model_performance(model_name, stage, X_holdout_path, y_holdout_path):
     try:
+        logger.info(
+            f"Starting performance test for model '{model_name}' in stage '{stage}'"
+        )
         client = MlflowClient()
 
         # Getting the latest version of the model in the specified stage
@@ -39,8 +43,12 @@ def test_model_performance(model_name, stage, holdout_data_path, vectorizer_path
         )
         if latest_version_info:
             latest_version = latest_version_info[0].version
+            logger.info(f"Found model version: {latest_version}")
         else:
             latest_version = None
+            logger.warning(
+                f"No model found in stage '{stage}' for model '{model_name}'"
+            )
 
         assert (
             latest_version is not None
@@ -48,29 +56,22 @@ def test_model_performance(model_name, stage, holdout_data_path, vectorizer_path
 
         # Loading the latest version of the model
         model_uri = f"models:/{model_name}/{latest_version}"
+        logger.info(f"Loading model from URI: {model_uri}")
         model = mlflow.pyfunc.load_model(model_uri=model_uri)
 
-        # Loading the vectorizer
-        with open(vectorizer_path, "rb") as f:
-            vectorizer = pickle.load(f)
-
         # Loading the holdout data
-        holdout_data = pd.read_csv(holdout_data_path)
-        X_holdout_raw = holdout_data.iloc[:, :-1].squeeze()
-        y_holdout = holdout_data.iloc[:, -1]
+        logger.info(f"Reading X_holdout from {X_holdout_path}")
+        X_holdout = pd.read_csv(X_holdout_path)
 
-        # Handling NaNs
-        X_holdout_raw = X_holdout_raw.fillna("")
-
-        # Applying vectorizer
-        X_holdout = vectorizer.transform(X_holdout_raw)
-        X_holdout_df = pd.DataFrame(X_holdout.toarray())
-        X_holdout_df.columns = [str(i) for i in range(X_holdout_df.shape[1])]
+        logger.info(f"Reading y_holdout from {y_holdout_path}")
+        y_holdout = pd.read_csv(y_holdout_path)
 
         # Predictions
-        y_pred = model.predict(X_holdout_df)
+        logger.info("Generating predictions on holdout data")
+        y_pred = model.predict(X_holdout)
 
         # Calculating performance metrics
+        logger.info("Calculating performance metrics")
         acc = accuracy_score(y_true=y_holdout, y_pred=y_pred)
         prec = precision_score(
             y_true=y_holdout, y_pred=y_pred, average="weighted", zero_division=1
@@ -81,12 +82,15 @@ def test_model_performance(model_name, stage, holdout_data_path, vectorizer_path
         f1 = f1_score(
             y_true=y_holdout, y_pred=y_pred, average="weighted", zero_division=1
         )
+        logger.info(
+            f"Accuracy: {acc:.4f}, Precision: {prec:.4f}, Recall: {rec:.4f}, F1: {f1:.4f}"
+        )
 
         # Thresholds
-        expected_acc = 0.60
-        expected_prec = 0.60
-        expected_rec = 0.60
-        expected_f1 = 0.60
+        expected_acc = 0.75
+        expected_prec = 0.75
+        expected_rec = 0.75
+        expected_f1 = 0.75
 
         # Asserts
         assert (
@@ -102,9 +106,10 @@ def test_model_performance(model_name, stage, holdout_data_path, vectorizer_path
             f1 >= expected_f1
         ), f"F1 score should at least be {expected_f1}, instead got {f1}."
 
-        print(
+        logger.success(
             f"Performance test passed for model '{model_name}' version {latest_version}."
         )
 
     except Exception as e:
+        logger.error(f"Model performance test failed with error: {e}")
         pytest.fail(f"Model performance test failed with the error: {e}")
