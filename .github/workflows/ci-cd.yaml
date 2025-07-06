@@ -117,15 +117,8 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
           DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
         run: |
-          nohup uvicorn backend.main:app --host 0.0.0.0 --port 5000 --log-level info &
+          nohup uvicorn backend.app:app --host 0.0.0.0 --port 5000 --log-level info &
       
-      - name: Wait for FastAPI to be Ready
-        run: |
-          for i in {1..10}; do
-            nc -z localhost 5000 && echo "Server is up!" && exit 0
-            echo "Waiting for FastAPI server..." && sleep 3
-          done
-          echo "FastAPI server failed to start" && exit 1
       - name: Test FastAPI
         run: |
           pytest -s tests/test_fast_api.py
