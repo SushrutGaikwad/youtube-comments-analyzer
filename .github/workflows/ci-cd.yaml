@@ -117,8 +117,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
           DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
         run: |
-          nohup uvicorn backend.app:app --host 0.0.0.0 --port 5000 --log-level debug > fastapi.log 2>&1 &
-          sleep 5
+          nohup uvicorn backend.app:app --host 0.0.0.0 --port 5000 --log-level info &
       
       - name: Wait for FastAPI to be Ready
         run: |
@@ -131,10 +130,3 @@ jobs:
       - name: Test FastAPI
         run: |
           pytest -s tests/test_fast_api.py
-      
-      - name: Upload FastAPI Logs (if test fails)
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: fastapi-logs
-          path: fastapi.log
