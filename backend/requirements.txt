@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pandas
+matplotlib
+wordcloud
+loguru
+mlflow==2.22.0
+dagshub
+joblib
+nltk

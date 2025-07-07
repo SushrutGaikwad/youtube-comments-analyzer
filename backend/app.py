@@ -1,5 +1,6 @@
 import re
 import io
+import nltk
 import mlflow
 import joblib
 import dagshub
@@ -22,11 +23,10 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from youtube_comments_analyzer.config import (
-    STOP_WORDS_TO_KEEP,
-    MODELS_DIR,
-    VECTORIZER_FILE_NAME,
-)
+STOP_WORDS_TO_KEEP: set = {"not", "but", "however", "no", "yet"}
+PROJ_ROOT = Path(__file__).resolve().parents[1]
+MODELS_DIR = PROJ_ROOT / "models"
+VECTORIZER_FILE_NAME = "vectorizer.pkl"
 
 # DagsHub and MLflow setup
 dagshub.init(
