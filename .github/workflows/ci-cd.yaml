@@ -152,3 +152,26 @@ jobs:
         if: success()
         run: |
           docker push 872515288060.dkr.ecr.us-east-2.amazonaws.com/youtube-comments-analyzer:latest
+      
+      - name: Zip Files for Deployment
+        if: success()
+        run: |
+          zip -r deployment.zip appspec.yml deploy/scripts/install_dependencies.sh deploy/scripts/start_docker.sh
+      
+      - name: Upload Zip File to S3
+        if: success()
+        run: |
+          aws s3 cp deployment.zip s3://yt-comments-analyzer-codedeploy-bucket/deployment.zip
+      
+      - name: Deploy to AWS CodeDeploy
+        if: success()
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws deploy create-deployment \
+            --application-name youtube-comments-analyzer \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name youtube-comments-analyzer-deployment-group \
+            --s3-location bucket=yt-comments-analyzer-codedeploy-bucket,key=deployment.zip,bundleType=zip \
+            --file-exists-behavior OVERWRITE \
+            --region us-east-2
