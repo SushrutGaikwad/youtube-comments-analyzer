@@ -158,7 +158,7 @@ jobs:
         run: |
           zip -r deployment.zip appspec.yml deploy/scripts/install_dependencies.sh deploy/scripts/start_docker.sh
       
-      - name: Upload Zip File to S3
+      - name: Upload the Zip File to S3
         if: success()
         run: |
           aws s3 cp deployment.zip s3://yt-comments-analyzer-codedeploy-bucket/deployment.zip
