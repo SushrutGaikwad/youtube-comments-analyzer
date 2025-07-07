@@ -51,6 +51,11 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the FastAPI Application!"}
+
+
 # Preprocessing
 def preprocess_comment(comment: str) -> str:
     try:
