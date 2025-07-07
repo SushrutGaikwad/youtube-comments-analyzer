@@ -130,3 +130,25 @@ jobs:
       - name: Test FastAPI
         run: |
           pytest -s tests/test_fast_api.py
+      
+      - name: Log in to AWS ECR
+        if: success()
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 872515288060.dkr.ecr.us-east-2.amazonaws.com
+      
+      - name: Build Docker Image
+        if: success()
+        run: |
+          docker build -t youtube-comments-analyzer .
+      
+      - name: Tag Docker Image
+        if: success()
+        run: |
+          docker tag youtube-comments-analyzer:latest 872515288060.dkr.ecr.us-east-2.amazonaws.com/youtube-comments-analyzer:latest
+      
+      - name: Push Docker Image to AWS ECR
+        if: success()
+        run: |
+          docker push 872515288060.dkr.ecr.us-east-2.amazonaws.com/youtube-comments-analyzer:latest
